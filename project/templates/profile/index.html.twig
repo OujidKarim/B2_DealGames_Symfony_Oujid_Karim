@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %} Accueil - DealGames {% endblock %}
+{% block title %}Modifier le profil{% endblock %}
 
 {% block body %}
 <nav class="navbar">
@@ -13,7 +13,7 @@
         {% if app.user %}
             <li class="nav-item">
                 <a href="{{ path('app_profile') }}" class="nav-link">
-                    {{ app.user.username }} <!-- Affiche le nom d'utilisateur -->
+                    {{ app.user.username }} 
                 </a>
             </li>
             {% if app.user.isVerified() %}
@@ -26,20 +26,15 @@
         {% endif %}
     </ul>
 </nav>
+
+<h1 class="text-center">Modifier votre profil</h1>
+
 <div class="container">
-    <h1 class="display-4">Bienvenue sur DealGames</h1>
-    <div class="row">
-        <div class="col-md-4">
-            <h2 class="text-center">Vendez vos jeux</h2>
-            <p class="text-center">Vendez vos jeux, consoles et accessoires sur DealGames.</p>
-            <a href="{{ path('new_annonce') }}" class="btn btn-primary">Créer une nouvelle annonce</a>
-        </div>
-        <div class="col-md-4">
-            <h2 class="text-center">Achetez des jeux</h2>
-            <p class="text-center">Achetez des jeux, consoles et accessoires sur DealGames.</p>
-            <a href="{{ path('app_annonce') }}" class="btn btn-primary">Voir les annonces</a>
-        </div>
-    </div>
+    {{ form_start(form, {'attr': {'class': 'form-horizontal'}}) }}
+    {{ form_widget(form, {'attr': {'class': 'form-control'}}) }}
+    <button type="submit" class="btn btn-primary">Enregistrer</button>
+    {{ form_end(form) }}
+    <a href="{{ path('app_reset_password') }}" class="btn btn-secondary">Réinitialiser le mot de passe</a>
 </div>
 {% endblock %}
 

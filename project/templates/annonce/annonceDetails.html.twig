@@ -1,0 +1,82 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Détails de l'annonce !
+{% endblock %}
+
+{% block body %}
+	<nav class="navbar">
+		<a href="{{ path('app_home') }}" class="navbar-brand">DealGames</a>
+		<ul class="navbar-nav">
+			<li class="nav-item">
+				<a href="{{ path('app_home') }}" class="nav-link">Accueil</a>
+			</li>
+			<li class="nav-item">
+				<a href="#" class="nav-link">Jeux PC</a>
+			</li>
+			<li class="nav-item">
+				<a href="#" class="nav-link">Jeux Console</a>
+			</li>
+			<li class="nav-item">
+				<a href="#" class="nav-link">Accessoires</a>
+			</li>
+			{% if app.user %}
+				<li class="nav-item">
+					<a href="{{ path('app_profile') }}" class="nav-link">
+						{{ app.user.username }}
+					</a>
+				</li>
+				{% if app.user.isVerified() %}
+					<li class="nav-item">
+						<a href="{{ path('app_annonce_new') }}" class="nav-link">
+							Créer une nouvelle annonce
+						</a>
+					</li>
+				{% endif %}
+			{% endif %}
+		</ul>
+	</nav>
+	<section id="detailsAnnonce">
+		<div class="detailsAnnonceContainer">
+			<div class="detailsAnnonceFirst">
+				<figure class="detailsAnnoncePicture">
+					<img src="{{ asset('uploads/annonces/' ~ annonce.image) }}" alt="Image de l'annonce">
+				</figure>
+				<h1 class="detailsAnnonceTitle">{{ annonce.title }}</h1>
+				<p class="detailsAnnoncePrice">Prix :
+					{{ annonce.prix }}</p>
+				<p class="detailsAnnonceLocation">Ville :
+					{{ annonce.ville }}</p>
+				<p class="detailsAnnoncePostalCode">Code Postal :
+					{{ annonce.codePostal }}</p>
+			</div>
+			<div class="detailsAnnonceSecond">
+				<div class="detailsAnnoncePosted">
+					<h2>Annonce postée le :
+						{{ annonce.dateCreation|date("d/m/Y") }}
+						par
+						{{ annonce.author.username }}</h2>
+				</div>
+				<div class="detailsAnnonceDescription">
+					<h2>Description de l'annonce</h2>
+					<p class="detailsAnnonceDescriptionText">{{ annonce.description }}</p>
+				</div>
+				<div class="detailsAnnonceCategory">
+					<h2>Catégorie de l'annonce</h2>
+					<p class="detailsAnnonceDescriptionText">{{ annonce.categories.value }}</p>
+				</div>
+				<div class="retourAccueil">
+					<a href="{{ path('app_home') }}" class="btn btn-primary">Retour à l'accueil</a>
+				</div>
+				{% if app.user == annonce.author %}
+					<div class="detailsAnnonceEdit">
+						<a href="{{ path('update_annonce', {'id': annonce.id}) }}" class="btn btn-primary">Modifier l'annonce</a>
+						<a href="{{ path('delete_annonce', {'id': annonce.id}) }}" class="btn btn-danger">Supprimer l'annonce</a>
+
+					</div>
+				{% endif %}
+
+
+			</div>
+		</div>
+	</section>
+{% endblock %}

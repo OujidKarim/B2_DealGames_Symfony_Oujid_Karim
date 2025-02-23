@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %} Accueil - DealGames {% endblock %}
+{% block title %}Hello AnnouncementController!{% endblock %}
 
 {% block body %}
 <nav class="navbar">
@@ -26,20 +26,21 @@
         {% endif %}
     </ul>
 </nav>
-<div class="container">
-    <h1 class="display-4">Bienvenue sur DealGames</h1>
-    <div class="row">
-        <div class="col-md-4">
-            <h2 class="text-center">Vendez vos jeux</h2>
-            <p class="text-center">Vendez vos jeux, consoles et accessoires sur DealGames.</p>
-            <a href="{{ path('new_annonce') }}" class="btn btn-primary">Créer une nouvelle annonce</a>
-        </div>
-        <div class="col-md-4">
-            <h2 class="text-center">Achetez des jeux</h2>
-            <p class="text-center">Achetez des jeux, consoles et accessoires sur DealGames.</p>
-            <a href="{{ path('app_annonce') }}" class="btn btn-primary">Voir les annonces</a>
-        </div>
-    </div>
+<div class="card_annonces">
+    <h1 class="card_title"> Annonces</h1>
+    <ul class="annonces_list">
+        {% for annonce in annonces %}
+            <li class="annonce">
+                <h2 class="annonce_title">{{ annonce.title }}</h2>
+                <img class="annonce_image" src="{{ asset(annonce.image) }}" />
+                <p class="annonce_description">{{ annonce.description }}</p>
+                <p class="annonce_prix">Prix : {{ annonce.prix }} </p>
+                <p class="annonce_ville">Ville : {{ annonce.ville }} </p>
+                <p class="annonce_categories">Cat gories : {{ annonce.categories.value }}</p>
+                <a href="{{ path('details_annonce', {'id': annonce.id}) }}" class="btn btn-primary">Voir les détails</a>
+            </li>
+
+        {% endfor %}
+    </ul>
 </div>
 {% endblock %}
-
