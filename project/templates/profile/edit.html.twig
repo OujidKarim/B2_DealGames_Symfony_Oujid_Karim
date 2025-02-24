@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Liste des annonces{% endblock %}
+{% block title %}Modifier le profil{% endblock %}
 
 {% block body %}
 <nav class="navbar">
@@ -12,8 +12,8 @@
         <li class="nav-item"><a href="#" class="nav-link">Accessoires</a></li>
         {% if app.user %}
             <li class="nav-item">
-                <a href="{{ path('profile') }}" class="nav-link">
-                    {{ app.user.username }} <!-- Affiche le nom d'utilisateur -->
+                <a href="{{ path('edit_profile') }}" class="nav-link">
+                    {{ app.user.username }} 
                 </a>
             </li>
             {% if app.user.isVerified() %}
@@ -31,19 +31,15 @@
         {% endif %}
     </ul>
 </nav>
-<div class="annonce-add-form">
-    <h2>Créer une nouvelle annonce</h2>
-    {{ form_start(app_annonce, {'attr': {'class': 'form-horizontal'}}) }}
-        {{ form_row(app_annonce.title, {'attr': {'class': 'form-control'}}) }}
-        {{ form_row(app_annonce.description, {'attr': {'class': 'form-control'}}) }}
-        {{ form_row(app_annonce.imageFile, {'attr': {'class': 'form-control'}}) }}
-        {{ form_row(app_annonce.categories, {'attr': {'class': 'form-control'}}) }}
-        {{ form_row(app_annonce.prix, {'attr': {'class': 'form-control'}}) }}
-        {{ form_row(app_annonce.ville, {'attr': {'class': 'form-control'}}) }}
-        {{ form_row(app_annonce.codePostal, {'attr': {'class': 'form-control'}}) }}
-        <button type="submit" class="btn btn-primary">Créer</button>
-    {{ form_end(app_annonce) }}
+
+<h1 class="text-center">Modifier votre profil</h1>
+
+<div class="container">
+    {{ form_start(form, {'attr': {'class': 'form-horizontal'}}) }}
+    {{ form_widget(form, {'attr': {'class': 'form-control'}}) }}
+    <button type="submit" class="btn btn-primary">Enregistrer</button>
+    {{ form_end(form) }}
+    <a href="/reset-password" class="btn btn-secondary">Réinitialiser le mot de passe</a>
 </div>
 {% endblock %}
-
 

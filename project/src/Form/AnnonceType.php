@@ -6,9 +6,9 @@ use App\Entity\Annonce;
 use App\Enum\Categories;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\EnumType;
-use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Vich\UploaderBundle\Form\Type\VichImageType;
 
 class AnnonceType extends AbstractType
 {
@@ -17,7 +17,7 @@ class AnnonceType extends AbstractType
         $builder
             ->add('title')
             ->add('description')
-            ->add('imageFile', FileType::class, [
+            ->add('imageFile', VichImageType::class, [
                 'label' => 'Image (JPEG file)',
                 'mapped' => false,
             ])

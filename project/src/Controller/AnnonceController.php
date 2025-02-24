@@ -53,7 +53,7 @@ final class AnnonceController extends AbstractController
             
             $annonce -> setTitle($form->get('title')->getData());
             $annonce -> setDescription($form->get('description')->getData());
-            $annonce -> setImage($form->get('image')->getData());
+            $annonce -> setImageFile($form->get('imageFile')->getData());
             $annonce -> setAuthor($user);
             $annonce -> setCategories($form->get('categories')->getData());
             $annonce -> setPrix($form->get('prix')->getData());
@@ -112,7 +112,7 @@ final class AnnonceController extends AbstractController
             $annonce->setAuthor($user);
             $image = $form->get('imageFile')->getData();
             if($image){
-                $annonce->setImage($image);
+                $annonce->setImageFile($image);
                 
             }
             $annonce->setCategories($form->get('categories')->getData());
@@ -134,30 +134,26 @@ final class AnnonceController extends AbstractController
     #[Route('/annonce/delete/{id}', name: 'delete_annonce')]
     public function deleteOne(EntityManagerInterface $em, int $id, Request $request): Response
     {
-        /** @var \App\Entity\User $user */ 
         $user = $this->getUser();
+
         if(!$user){
             return $this->redirectToRoute('app_login');
         }
-        $userId = $user->getId();
-        $annonce = $em->getRepository(Annonce::class)->find($id); 
-        $deleteAnnonceForm = $this->createForm(DeleteAnnonceType::class, $annonce);
-        $deleteAnnonceForm->handleRequest($request);
 
-        if ($deleteAnnonceForm->isSubmitted() && $deleteAnnonceForm->isValid()){
-            if ($user->getId() != $annonce->getAuthor()->getId()) {
-                $this->addFlash('notice', 'Vous n\'avez pas les droits pour effectuer cette action !');
-            }
-            else{
-                $this->addFlash('notice', 'Votre annonce à bien était supprimée !');
-                $em->remove($annonce);
-                $em->flush();
-            }
+        $annonce = $em->getRepository(Annonce::class)->find($id);
+
+        if (!$annonce) {
+            throw $this->createNotFoundException('L\'annonce n\'existe pas');
         }
+
+        $em->remove($annonce);
+        $em->flush();
+
+        $this->addFlash('notice', 'Votre annonce à bien était supprimée !');
 
         return $this->redirectToRoute('app_annonce');
     }
-
+    
 
 
 

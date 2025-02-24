@@ -21,7 +21,7 @@
 			</li>
 			{% if app.user %}
 				<li class="nav-item">
-					<a href="{{ path('app_profile') }}" class="nav-link">
+					<a href="{{ path('profile') }}" class="nav-link">
 						{{ app.user.username }}
 					</a>
 				</li>
@@ -32,6 +32,11 @@
 						</a>
 					</li>
 				{% endif %}
+				<li class="nav-item">
+					<a href="{{ path('app_logout') }}" class="nav-link">
+						Déconnexion
+					</a>
+				</li>
 			{% endif %}
 		</ul>
 	</nav>
@@ -39,7 +44,7 @@
 		<div class="detailsAnnonceContainer">
 			<div class="detailsAnnonceFirst">
 				<figure class="detailsAnnoncePicture">
-					<img src="{{ asset('uploads/annonces/' ~ annonce.image) }}" alt="Image de l'annonce">
+					<img src="{{ asset('/images/' ~ annonce.imageName) }}" alt="Image de l'annonce">
 				</figure>
 				<h1 class="detailsAnnonceTitle">{{ annonce.title }}</h1>
 				<p class="detailsAnnoncePrice">Prix :
@@ -70,7 +75,7 @@
 				{% if app.user == annonce.author %}
 					<div class="detailsAnnonceEdit">
 						<a href="{{ path('update_annonce', {'id': annonce.id}) }}" class="btn btn-primary">Modifier l'annonce</a>
-						<a href="{{ path('delete_annonce', {'id': annonce.id}) }}" class="btn btn-danger">Supprimer l'annonce</a>
+						<a href="{{ path('delete_annonce', {'id': annonce.id}) }}" class="btn btn-primary">Supprimer l'annonce</a>
 
 					</div>
 				{% endif %}

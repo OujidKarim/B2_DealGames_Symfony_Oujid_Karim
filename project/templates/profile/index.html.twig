@@ -12,7 +12,7 @@
         <li class="nav-item"><a href="#" class="nav-link">Accessoires</a></li>
         {% if app.user %}
             <li class="nav-item">
-                <a href="{{ path('app_profile') }}" class="nav-link">
+                <a href="{{ path('edit_profile') }}" class="nav-link">
                     {{ app.user.username }} 
                 </a>
             </li>
@@ -23,18 +23,46 @@
                     </a>
                 </li>
             {% endif %}
+            <li class="nav-item">
+                <a href="{{ path('app_logout') }}" class="nav-link">
+                    Déconnexion
+                </a>
+            </li>
         {% endif %}
     </ul>
 </nav>
 
-<h1 class="text-center">Modifier votre profil</h1>
-
-<div class="container">
-    {{ form_start(form, {'attr': {'class': 'form-horizontal'}}) }}
-    {{ form_widget(form, {'attr': {'class': 'form-control'}}) }}
-    <button type="submit" class="btn btn-primary">Enregistrer</button>
-    {{ form_end(form) }}
-    <a href="{{ path('app_reset_password') }}" class="btn btn-secondary">Réinitialiser le mot de passe</a>
+<div class="profile-info">
+    <h2>Informations du profil</h2>
+    <p>Nom d'utilisateur: {{ app.user.username }}</p>
+    <p>Email: {{ app.user.email }}</p>
+    {% if app.user.isVerified() %}
+        <p>Status: Vérifié</p>
+    {% else %}
+        <p>Status: Non vérifié</p>
+    {% endif %}
 </div>
+
+<div class="profile-modify">
+    <a href="{{ path('edit_profile') }}" class="btn btn-primary">Modifier le profil</a>
+</div>
+
+<div class="userAnnonces">
+    <h2>Mes Annonces</h2>
+    <ul class="annonces-list">
+        {% for annonce in app.user.annonces %}
+            <li class="annonce">
+                <img src="{{ asset("/images/" ~ annonce.imageName) }}" alt="Image de {{ annonce.title }}" class="annonce-image">
+                <h3 class="annonce-title">{{ annonce.title }}</h3>
+                <p class="annonce-description">{{ annonce.description }}</p>
+                <p class="annonce-prix">Prix : {{ annonce.prix }}</p>
+                <a href="{{ path('details_annonce', {'id': annonce.id}) }}" class="btn btn-primary">Voir les détails</a>
+            </li>
+        {% else %}
+            <p>Aucune annonce publiée.</p>
+        {% endfor %}
+    </ul>
+</div>
+
 {% endblock %}
 

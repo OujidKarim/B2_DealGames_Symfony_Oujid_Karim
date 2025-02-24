@@ -11,8 +11,23 @@ use App\Form\ProfileType;
 
 final class ProfileController extends AbstractController
 {
+    #[Route('/profile', name: 'profile')]
+    public function index(): Response
+    {
+        $user = $this->getUser();
+
+        if(!$user){
+            return $this->redirectToRoute('app_login');
+        }
+
+        return $this->render('profile/index.html.twig', [
+            'user_profile' => $user,
+        ]);
+    }
     
-    #[Route('/profile', name: 'app_profile')]
+
+
+    #[Route('/profile/edit', name: 'edit_profile')]
     public function edit(Request $request, EntityManagerInterface $entityManager): Response
     {
 
@@ -31,9 +46,13 @@ final class ProfileController extends AbstractController
             return $this->redirectToRoute('app_home');
         }
 
-        return $this->render('profile/index.html.twig', [
+        return $this->render('profile/edit.html.twig', [
             'form' => $form->createView(),
         ]);
     }
+
+    
+    
+
 }
 

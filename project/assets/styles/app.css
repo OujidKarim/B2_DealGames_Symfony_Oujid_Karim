@@ -171,56 +171,56 @@ h1 {
 }
 
 .annonce {
-    flex: 1 1 calc(33.333% - 20px);
     box-sizing: border-box;
-    margin-bottom: 10px;
+    width: 300px;
     padding: 10px;
-    border: 1px solid #ddd;
+    border: 1px solid #ccc;
     border-radius: 8px;
     background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .annonce_title {
-    font-size: 14px;
+    font-size: 18px;
     font-weight: bold;
-    color: #555;
-    margin-bottom: 5px;
+    color: #222;
+    margin-bottom: 10px;
 }
 
 .annonce_image {
     width: 100%;
-    height: auto;
-    margin-bottom: 5px;
-    border-radius: 4px;
+    height: 300px;
+    object-fit: cover;
+    margin-bottom: 10px;
+    border-radius: 6px;
 }
 
 .annonce_description,
 .annonce_prix,
 .annonce_ville,
 .annonce_categories {
-    margin-bottom: 5px;
-    font-size: 12px;
-    color: #666;
+    margin-bottom: 10px;
+    font-size: 14px;
+    color: #444;
 }
 
 #detailsAnnonce {
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 30px;
-    border-radius: 12px;
+    padding: 50px;
+    border-radius: 20px;
     background-color: #f9f9f9;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
     margin-top: 20px;
+    width: 100%;
 }
 
 .detailsAnnonceContainer {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 20px;
-    width: 100%;
-    max-width: 1200px;
+    gap: 40px;
 }
 
 .detailsAnnonceFirst,
@@ -228,58 +228,132 @@ h1 {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 20px;
-    width: 100%;
-    max-width: 600px;
-    padding: 15px;
-    border-radius: 8px;
-    background-color: #fff;
+    gap: 40px;
+    padding: 30px;
+    border-radius: 12px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .detailsAnnonceTitle {
-    font-size: 30px;
+    font-size: 40px;
     font-weight: bold;
     color: #222;
-    margin-bottom: 20px;
+    margin-bottom: 40px;
     text-align: center;
 }
 
 .detailsAnnoncePicture {
     width: 100%;
     height: auto;
-    margin-bottom: 20px;
+    margin-bottom: 40px;
     border-radius: 12px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
 }
 
 .detailsAnnoncePrice,
 .detailsAnnonceLocation,
 .detailsAnnoncePostalCode {
-    margin-bottom: 20px;
-    font-size: 20px;
+    margin-bottom: 40px;
+    font-size: 30px;
     color: #444;
     text-align: center;
 }
 
-.detailsAnnoncePosted {
-    margin-bottom: 20px;
-    font-size: 16px;
-    color: #666;
-    text-align: center;
-}
-
-.detailsAnnonceDescription,
-.detailsAnnonceCategory {
-    margin-bottom: 20px;
-    font-size: 18px;
+.detailsAnnonceDescription {
+    margin-bottom: 40px;
+    font-size: 24px;
     color: #444;
     text-align: center;
+    line-height: 1.5;
 }
 
 .detailsAnnonceDescriptionText {
     white-space: pre-line;
-    font-size: 16px;
+    font-size: 20px;
     color: #555;
 }
 
+.detailsAnnonceCategory {
+    margin-bottom: 40px;
+    font-size: 20px;
+    color: #666;
+    text-align: center;
+}
+
+.userAnnonces {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    background-color: #f1f1f1;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.userAnnonces h2 {
+    font-size: 28px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.userAnnonces .annonces-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    justify-content: center;
+}
+
+.userAnnonces .annonce {
+    width: 300px;
+    padding: 15px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.userAnnonces .annonce-image {
+    width: 100%;
+    height: 300px;
+    object-fit: cover;
+    margin-bottom: 10px;
+    border-radius: 6px;
+}
+
+.userAnnonces .annonce-title {
+    font-size: 18px;
+    font-weight: bold;
+    color: #222;
+    margin-bottom: 10px;
+}
+
+.userAnnonces .annonce-description {
+    font-size: 14px;
+    color: #444;
+    margin-bottom: 10px;
+}
+
+.userAnnonces .annonce-prix {
+    font-size: 16px;
+    color: #444;
+    margin-bottom: 10px;
+}
+
+.userAnnonces .btn-primary {
+    background-color: #007bff;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    text-decoration: none;
+    display: inline-block;
+    transition: background-color 0.3s;
+}
+
+.userAnnonces .btn-primary:hover {
+    background-color: #0056b3;
+}

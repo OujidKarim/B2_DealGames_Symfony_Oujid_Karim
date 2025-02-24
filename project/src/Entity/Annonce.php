@@ -7,8 +7,12 @@ use App\Repository\AnnonceRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\HttpFoundation\File\File;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 #[ORM\Entity(repositoryClass: AnnonceRepository::class)]
+
+#[Vich\Uploadable]
+
 class Annonce
 {
     #[ORM\Id]
@@ -18,9 +22,6 @@ class Annonce
 
     #[ORM\Column(length: 255)]
     private ?string $title = null;
-
-    #[ORM\Column(length: 255)]
-    private ?string $image = null;
 
     // #[ORM\Column(length: 255)]
     // private ?string $categorie = null;
@@ -50,6 +51,16 @@ class Annonce
     #[ORM\Column(enumType: Categories::class)]
     private ?Categories $categories = null;
 
+    #[Vich\UploadableField(mapping: 'annonce', fileNameProperty: 'imageName',)]
+    private ?File $imageFile = null;
+
+    #[ORM\Column(nullable: true)]
+    private ?string $imageName = null;
+
+
+    #[ORM\Column(nullable: true)]
+    private ?\DateTimeImmutable $updatedAt = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -67,14 +78,29 @@ class Annonce
         return $this;
     }
 
-    public function setImage(File $image = null): void
+    public function setImageFile(?File $imageFile = null): void
     {
-        $this->image = $image;
+        $this->imageFile = $imageFile;
+
+        if (null !== $imageFile) {
+
+            $this->updatedAt = new \DateTimeImmutable();
+        }
     }
 
-    public function getImage(): ?string
+    public function getImageFile(): ?File
     {
-        return $this->image;
+        return $this->imageFile;
+    }
+
+    public function setImageName(?string $imageName): void
+    {
+        $this->imageName = $imageName;
+    }
+
+    public function getImageName(): ?string
+    {
+        return $this->imageName;
     }
 
 

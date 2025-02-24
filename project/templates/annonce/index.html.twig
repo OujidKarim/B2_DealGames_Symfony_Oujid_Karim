@@ -1,46 +1,69 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello AnnouncementController!{% endblock %}
+{% block title %}Hello AnnouncementController!
+{% endblock %}
 
 {% block body %}
-<nav class="navbar">
-    <a href="{{ path('app_home') }}" class="navbar-brand">DealGames</a>
-    <ul class="navbar-nav">
-        <li class="nav-item"><a href="{{ path('app_home') }}" class="nav-link">Accueil</a></li>
-        <li class="nav-item"><a href="#" class="nav-link">Jeux PC</a></li>
-        <li class="nav-item"><a href="#" class="nav-link">Jeux Console</a></li>
-        <li class="nav-item"><a href="#" class="nav-link">Accessoires</a></li>
-        {% if app.user %}
-            <li class="nav-item">
-                <a href="{{ path('app_profile') }}" class="nav-link">
-                    {{ app.user.username }} <!-- Affiche le nom d'utilisateur -->
-                </a>
-            </li>
-            {% if app.user.isVerified() %}
-                <li class="nav-item">
-                    <a href="{{ path('app_annonce_new') }}" class="nav-link">
-                        Créer une nouvelle annonce
-                    </a>
-                </li>
-            {% endif %}
-        {% endif %}
-    </ul>
-</nav>
-<div class="card_annonces">
-    <h1 class="card_title"> Annonces</h1>
-    <ul class="annonces_list">
-        {% for annonce in annonces %}
-            <li class="annonce">
-                <h2 class="annonce_title">{{ annonce.title }}</h2>
-                <img class="annonce_image" src="{{ asset(annonce.image) }}" />
-                <p class="annonce_description">{{ annonce.description }}</p>
-                <p class="annonce_prix">Prix : {{ annonce.prix }} </p>
-                <p class="annonce_ville">Ville : {{ annonce.ville }} </p>
-                <p class="annonce_categories">Cat gories : {{ annonce.categories.value }}</p>
-                <a href="{{ path('details_annonce', {'id': annonce.id}) }}" class="btn btn-primary">Voir les détails</a>
-            </li>
+	<nav class="navbar">
+		<a href="{{ path('app_home') }}" class="navbar-brand">DealGames</a>
+		<ul class="navbar-nav">
+			<li class="nav-item">
+				<a href="{{ path('app_home') }}" class="nav-link">Accueil</a>
+			</li>
+			<li class="nav-item">
+				<a href="#" class="nav-link">Jeux PC</a>
+			</li>
+			<li class="nav-item">
+				<a href="#" class="nav-link">Jeux Console</a>
+			</li>
+			<li class="nav-item">
+				<a href="#" class="nav-link">Accessoires</a>
+			</li>
+			{% if app.user %}
+				<li class="nav-item">
+					<a href="{{ path('profile') }}" class="nav-link">
+						{{ app.user.username }}
+						<!-- Affiche le nom d'utilisateur -->
+					</a>
+				</li>
+				{% if app.user.isVerified() %}
+					<li class="nav-item">
+						<a href="{{ path('app_annonce_new') }}" class="nav-link">
+							Créer une nouvelle annonce
+						</a>
+					</li>
+				{% endif %}
+				<li class="nav-item">
+					<a href="{{ path('app_logout') }}" class="nav-link">
+						Déconnexion
+					</a>
+				</li>
+			{% endif %}
+		</ul>
+	</nav>
+	<div class="card_annonces">
+		<h1 class="card_title">
+			Annonces</h1>
+		<ul class="annonces_list">
+			{% for annonce in annonces %}
+				<li class="annonce">
+					<h2 class="annonce_title">{{ annonce.title }}</h2>
+					<img class="annonce_image" src="{{ asset("/images/" ~ annonce.imageName) }}"/>
+					<p class="annonce_description">{{ annonce.description }}</p>
+					<p class="annonce_prix">Prix :
+						{{ annonce.prix }}
+					</p>
+					<p class="annonce_ville">Ville :
+						{{ annonce.ville }}
+					</p>
+					<p class="annonce_categories">Catégories :
+						{{ annonce.categories.value }}</p>
+					<a href="{{ path('details_annonce', {'id': annonce.id}) }}" class="btn btn-primary">Voir les détails</a>
+				</li>
 
-        {% endfor %}
-    </ul>
-</div>
+			{% endfor %}
+		</ul>
+	</div>
+	<a href="{{ path('new_annonce') }}" class="btn btn-primary">Créer une nouvelle annonce</a>
+
 {% endblock %}
